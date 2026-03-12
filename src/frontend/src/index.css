@@ -1,0 +1,115 @@
+@font-face {
+  font-family: "Mona Sans";
+  src: url("/assets/fonts/MonaSans.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/assets/fonts/CabinetGrotesk.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 10 0 0;
+    --foreground: 98 0 0;
+    --card: 15 0 0;
+    --card-foreground: 98 0 0;
+    --popover: 12 0 0;
+    --popover-foreground: 98 0 0;
+    --primary: 55 0.2 254;
+    --primary-foreground: 100 0 0;
+    --secondary: 22 0 0;
+    --secondary-foreground: 90 0 0;
+    --muted: 20 0 0;
+    --muted-foreground: 60 0 0;
+    --accent: 55 0.22 254;
+    --accent-foreground: 100 0 0;
+    --destructive: 50 0.22 25;
+    --destructive-foreground: 100 0 0;
+    --border: 25 0.02 240;
+    --input: 18 0.01 240;
+    --ring: 55 0.2 254;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background-color: oklch(10% 0 0);
+    color: oklch(98% 0 0);
+    font-family: "Mona Sans", sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 12px rgba(37, 211, 102, 0);
+    }
+  }
+
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .section-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(37, 99, 235, 0.15), 0 8px 24px
+      rgba(0, 0, 0, 0.4);
+  }
+}
