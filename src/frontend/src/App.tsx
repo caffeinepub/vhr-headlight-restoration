@@ -4,12 +4,11 @@ import {
   CheckCircle,
   Facebook,
   Instagram,
+  MapPin,
   Menu,
   MessageCircle,
-  Phone,
   Shield,
   Star,
-  Wrench,
   X,
   Zap,
 } from "lucide-react";
@@ -202,6 +201,43 @@ function Services() {
   const ref = useRef<HTMLDivElement>(null);
   useReveal(ref);
 
+  const services = [
+    {
+      icon: <Award size={24} />,
+      badge: null,
+      locationTag: "You come to me",
+      locationIcon: <MapPin size={13} />,
+      title: "At My Workshop",
+      price: "£40",
+      description:
+        "Drop your car off at my location and pick it up fully restored. Same professional result, lower price.",
+      features: [
+        "Full multi-stage wet sanding",
+        "Machine polishing",
+        "2K high-gloss UV protective clear coat",
+        "12–24 months durability",
+      ],
+      popular: false,
+    },
+    {
+      icon: <Star size={24} />,
+      badge: "Most Popular",
+      locationTag: "I come to you",
+      locationIcon: <Car size={13} />,
+      title: "Mobile / Doorstep Service",
+      price: "£60",
+      description:
+        "I travel to your home, workplace, supermarket car park, or anywhere convenient for you.",
+      features: [
+        "Full multi-stage wet sanding",
+        "Machine polishing",
+        "2K high-gloss UV protective clear coat",
+        "12–24 months durability",
+      ],
+      popular: true,
+    },
+  ];
+
   return (
     <section
       id="prices"
@@ -214,31 +250,16 @@ function Services() {
             Pricing
           </span>
           <h2 className="font-display font-black text-4xl md:text-5xl text-white mt-3 mb-4">
-            Our Services
+            Choose Your Option
           </h2>
           <p className="text-white/50 max-w-md mx-auto">
-            Professional headlight restoration at your doorstep
+            Same premium 2K clear coat result — pick the location that works for
+            you
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-2xl mx-auto">
-          {[
-            {
-              icon: <Star size={24} />,
-              title: "Premium 2K Clear Coat",
-              price: "£60",
-              description:
-                "Includes full sanding, machine polishing & 2K high-gloss UV protective clear coat (12–24 months durability).",
-              popular: true,
-            },
-            {
-              icon: <Award size={24} />,
-              title: "Full Car Package",
-              price: "£100",
-              description: "Headlights + taillights polishing & protection.",
-              popular: false,
-            },
-          ].map((service, i) => (
+          {services.map((service, i) => (
             <div
               key={service.title}
               data-ocid={`services.item.${i + 1}`}
@@ -249,35 +270,64 @@ function Services() {
               }`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
-              {service.popular && (
+              {service.badge && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-brand-blue text-white text-xs font-bold uppercase tracking-widest rounded-full">
-                  Most Popular
+                  {service.badge}
                 </div>
               )}
 
-              <div
-                className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 ${
-                  service.popular
-                    ? "bg-brand-blue text-white"
-                    : "bg-white/5 text-brand-blue-glow"
-                }`}
-              >
-                {service.icon}
+              {/* Icon + location tag */}
+              <div className="flex items-start justify-between mb-6">
+                <div
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                    service.popular
+                      ? "bg-brand-blue text-white"
+                      : "bg-white/5 text-brand-blue-glow"
+                  }`}
+                >
+                  {service.icon}
+                </div>
+                <span
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${
+                    service.popular
+                      ? "bg-brand-blue/20 text-brand-blue-light border border-brand-blue/30"
+                      : "bg-white/5 text-white/50 border border-white/10"
+                  }`}
+                >
+                  {service.locationIcon}
+                  {service.locationTag}
+                </span>
               </div>
 
               <h3 className="font-display font-bold text-xl text-white mb-2">
                 {service.title}
               </h3>
 
-              <div className="flex items-baseline gap-1 mb-4">
+              <div className="flex items-baseline gap-1 mb-3">
                 <span className="font-display font-black text-5xl text-white">
                   {service.price}
                 </span>
               </div>
 
-              <p className="text-white/60 text-sm leading-relaxed flex-1 mb-8">
+              <p className="text-white/55 text-sm leading-relaxed mb-5">
                 {service.description}
               </p>
+
+              {/* Features */}
+              <ul className="space-y-2 mb-8 flex-1">
+                {service.features.map((f) => (
+                  <li
+                    key={f}
+                    className="flex items-start gap-2 text-sm text-white/70"
+                  >
+                    <CheckCircle
+                      size={14}
+                      className="text-green-400 mt-0.5 shrink-0"
+                    />
+                    {f}
+                  </li>
+                ))}
+              </ul>
 
               <a
                 href={WHATSAPP_URL}
